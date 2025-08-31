@@ -27,7 +27,7 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   error: string;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, Password: string) => Promise<void>;
   logout: () => void;
   clearError: () => void;
 }
@@ -58,13 +58,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     signup: async (
       name: string,
       email: string,
-      password: string
+      Password: string
     ): Promise<AuthResponse> => {
       try {
-        const res = await axios.post("http://localhost:5000/api/auth/signup", {
+        const res = await axios.post("http://localhost:3400/api/signup", {
           name,
           email,
-          password,
+          Password,
         });
         return res.data;
       } catch (err: any) {
@@ -82,12 +82,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     },
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const signup = async (name: string, email: string, Password: string) => {
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await authAPI.signup(name, email, password);
+      const response = await authAPI.signup(name, email, Password);
 
       if (response.success && response.user) {
         sessionStorage.setItem("authToken", response.token || "");
@@ -140,7 +140,7 @@ export const SignupForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
+    Password: "",
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -163,11 +163,11 @@ export const SignupForm: React.FC = () => {
       clearError();
       return false;
     }
-    if (formData.password.length < 6) {
+    if (formData.Password.length < 6) {
       clearError();
       return false;
     }
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.Password !== formData.confirmPassword) {
       clearError();
       return false;
     }
@@ -177,7 +177,7 @@ export const SignupForm: React.FC = () => {
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
-    await signup(formData.name, formData.email, formData.password);
+    await signup(formData.name, formData.email, formData.Password);
   };
 
   return (
@@ -238,7 +238,7 @@ export const SignupForm: React.FC = () => {
           {/* Password Field */}
           <div>
             <label
-              htmlFor="password"
+              htmlFor="Password"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
               Password
@@ -246,13 +246,13 @@ export const SignupForm: React.FC = () => {
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={formData.password}
+                type={showPassword ? "text" : "Password"}
+                id="Password"
+                name="Password"
+                value={formData.Password}
                 onChange={handleInputChange}
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
-                placeholder="Create a password"
+                placeholder="Create a Password"
                 required
               />
               <button
@@ -280,13 +280,13 @@ export const SignupForm: React.FC = () => {
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "Password"}
                 id="confirmPassword"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
-                placeholder="Confirm your password"
+                placeholder="Confirm your Password"
                 required
               />
               <button

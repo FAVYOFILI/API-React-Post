@@ -32,14 +32,17 @@
 // export default App;
 
 import React from 'react'
+import SignupForm from './api/Context1'
 // import SignupForm from './api/teachpost'
-import AppWithAuth from './api/PostContext'
+// import AppWithAuth from './api/PostContext'
 
 const App = () => {
   return (
     <div>
       {/* <SignupForm /> */}
-      <AppWithAuth/>
+      {/* <AppWithAuth/> */}
+      <SignupForm/>
+
     </div>
   )
 }
