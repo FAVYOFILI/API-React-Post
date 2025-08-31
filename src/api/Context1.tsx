@@ -32,7 +32,7 @@ export default function SignupForm() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5089/api/users/signup",
+        "http://localhost:3400/api/signup",
         formData
       );
 
@@ -70,8 +70,8 @@ export default function SignupForm() {
         </h2>
 
         <input
-          type="text"
-          name=""
+          type="name"
+          name="name"
           placeholder="UserName"
           value={formData.name}
           onChange={handleChange}
@@ -92,7 +92,7 @@ export default function SignupForm() {
         <input
           type="password"
           name="password"
-          placeholder="UserName"
+          placeholder="Password"
           value={formData.password}
           onChange={handleChange}
           className="w-full p-2 border rounded mb-4"
